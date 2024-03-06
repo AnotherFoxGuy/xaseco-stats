@@ -1,0 +1,76 @@
+____________________________________________________________________
+Introduction
+____________________________________________________________________
+
+The TMFDataFetcher is a php class that represents a wrapper for the Trackmania Ladder API. It queries the NADEO stats server for a given login and gets all the available information about that player. It then provides this information in a fairly easy to use manner (be sure to read the other sections as well for multiple usage examples).
+I also built in a caching system which has to be used (see 'caching' section).
+Last but not least be sure to read the "Configuration" part which also includes the requirements.
+
+____________________________________________________________________
+Configuration
+____________________________________________________________________
+
+In order for the DataFetcher to work, you'll need the following things:
+* a stats server login, which has to be obtained from NADEO, to get that, kindly ask Alinoa (alinoa@nadeo.com)
+* a webserver running php 5 and mysql 5
+* in php the "openSSL" library has to be installed and enabled
+* the php cURL library should be installed (if it does not exist, the class automatically reverts to standard fopen functions, which can cause problems with remote URLs)
+
+Open the tmfdatafetcher.config.php and fill in the settings by editing the lines:
+
+$fetcherSettings['stats_user']     = 'yourstatsserverlogin';
+$fetcherSettings['stats_password'] = 'yourstatsserverpassword';
+$fetcherSettings['mysql_server']   = 'mysqlhost';
+$fetcherSettings['mysql_login']    = 'mysqlusername';
+$fetcherSettings['mysql_password'] = 'mysqlpassword';
+$fetcherSettings['mysql_database'] = 'mysqldatabase';
+
+$fetcherSettings['fetch_method'] = 0;
+$fetcherSettings['refresh_after_midnight'] = false;
+
+The database is needed for the caching. The other settings are described in the config file itself.
+
+
+
+____________________________________________________________________
+Caching
+____________________________________________________________________
+
+The TMFDataFetcher includes caching for various reasons. First of all, the access to the stats server is restricted and you will notice that querying it too often will result in a 'permission denied' error. On the other hand, it makes no sense to query it too often since the data is only updated once a day. Therefore this is the hardcoded caching timespan.
+
+And this is how it works:
+Everytime you use the datafetcher, the class will first look at the saved data in the database and see, if it has to be refreshed. If not, the DataFetcher will just load everything from the database. If the data is too old, the DataFetcher will query the stats server for new information, gather it and then save it to the database automatically.
+There are two different methods that can be used. Per default, the DataFetcher only gathers new stats if the last query to the stats server was more than 24 hours ago, but you can also set the DataFetcher to always gather new data on the first access of the day which could be a good method if you use a nightly cronjob to update your stats.
+
+The whole caching is totally transparent. You will not have to set up the database tables and you won't have to execute any methods to handle the database stuff. For you it's just instantianting a TMFDatafetcher object with a login and you'll get your data. I just love that caching stuff =)
+
+
+
+Errors
+..............
+
+The errors that can occur are either errors that come directly from NADEO (positive error number) or are generated inside the DataFetcher (negative error number). The following is a list of all possible errors:
+
+-8:  HTTPS Authorization failed: Your login or password seem to be invalid. If you used capitals in the login, try writing it all lower case.
+-7:  Nether the cURL module nor URL file access are enabled on your server.
+-6:  The cURL module is not enabled on your server.
+-5:  URL file access is not enabled on your server ("allow_url_fopen"). Enable it or try the cURL module.
+-4:  Database not found. Please create it.
+-3:  Could not connect to MySQL server. Please check your configuration file.
+-2:  You need to install and enable the OpenSSL php extension.
+7:   Invalid "login" parameter.
+14:  Player unknown.
+24:  Challenge unknown.
+26:  Invalid "idchallenge" parameter.
+9:   Invalid "ccode" parameter.
+41:  Parent zone unknown.
+57:  Environment unknown.
+62:  Invalid "parentzonepath" parameter.
+82:  Code unknown.
+125: Permission denied. You cannot use this request or you call it too often.
+157: There is a missing parameter.
+154: Wrong community code.
+161: Invalid "first" parameter.
+162: Invalid "count" parameter.
+
+You'll probably see error 125 a few times ;-)
