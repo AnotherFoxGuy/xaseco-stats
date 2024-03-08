@@ -4,7 +4,7 @@
 *   Stats for XAseco + RASP                      *
 *   __________________________________________   *
 *                                                *
-*   Version 3.6                                  *
+*   Version 3.7                                  *
 *   Copyright (c) 2007-2008 by oS.Cypher         *
 *   Developed as a Project of Old School Gaming  *
 *                                                *

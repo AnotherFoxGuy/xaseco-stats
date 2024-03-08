@@ -4,7 +4,7 @@
 *   Stats for XAseco + RASP                      *
 *   __________________________________________   *
 *                                                *
-*   Version 3.6                                  *
+*   Version 3.7                                  *
 *   Copyright (c) 2007-2008 by oS.Cypher         *
 *   Developed as a Project of Old School Gaming  *
 *                                                *
@@ -33,7 +33,7 @@ if (!is_null($serv)) include("includes/db_connect.php");
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<title>XAseco Stats - Version 3.6</title>
+	<title>XAseco Stats - Version 3.7</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<?php include("includes/styles.php"); ?>
 	<link href="style.css" rel="stylesheet" type="text/css">
@@ -129,9 +129,9 @@ if (!is_null($serv)) include("includes/db_connect.php");
 					if ($page != 'home' && $show_server_banners) print "<a href=\"?serv=".$serv."&lang=".$lang."&page=serverstatsbox\">Stats</a>";
 					else print "Stats";
 					?>
-					for XAseco + RASP - Version 3.6 - Copyright by oS.Cypher<br>
-					Updated by Xymph, W1lla, Assembler Maniac, Ant, sn3p<br>
-					<a href="http://xxx-ant.letsrock-tm.com/downloads/xaseco-stats_v3_6.zip">Download XAseco-Stats v3.6</a>
+					for XAseco + RASP - Version 3.7 - Copyright by oS.Cypher<br>
+					Updated by Xymph, W1lla, Assembler Maniac, Ant, sn3p, AnotherFoxGuy<br>
+					<a href="https://github.com/AnotherFoxGuy/xaseco-stats">Download XAseco-Stats</a>
 				</td>
 			</tr>
 		</table>
