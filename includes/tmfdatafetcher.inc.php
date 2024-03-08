@@ -15,7 +15,7 @@ class Environment{
 	var $ladderpoints;
 	var $ranking;
 
-	function Environment($xml){
+	function __construct($xml){
 		$this->name   = strval($xml->enviro);
 		$this->wins   = intval($xml->wins);
 		$this->draws  = intval($xml->draws);
@@ -47,7 +47,7 @@ class Environment{
 class Ladder{
 	var $Merge, $Bay, $Coast, $Desert, $Island, $Rally, $Snow, $Stadium;
 
-	function Ladder($ladderarray, $freeaccount){
+	function __construct($ladderarray, $freeaccount){
 		if ($freeaccount){
 			$this->Bay = null;
 			$this->Coast = null;
@@ -128,7 +128,7 @@ class TMFDataFetcher{
 
 
 
-	function TMFDataFetcher($login){
+	function __construct($login){
 		$this->config = TMFDataFetcherConfig::getInstance();
 		$this->dbnick = false;
 		$this->checkForModules();
